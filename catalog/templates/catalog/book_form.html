@@ -1,0 +1,19 @@
+{% extends "catalog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if perms.catalog.change_book or perms.catalog.edit_book %}
+        <h2>Edit Book</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <input type="submit" class="btn btn-primary" value="Save">
+        </form>
+    {% else %}
+        <div class="alert alert-danger">
+            You do not have permission to edit this book.
+        </div>
+    {% endif %}
+    <a href="{% url 'index' %}" class="btn btn-secondary">Back to Home</a>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "catalog/base.html" %}
+
+{% block content %}
+    {% if perms.catalog.delete_book %}
+        <h1>Delete Book {{ book.title }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Delete">
+            <a href="{% url 'book_detail' pk=book.pk %}">Cancel</a>
+        </form>
+    {% else %}
+        <div class="alert alert-danger">
+            You do not have permission to delete this book.
+        </div>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Back to Home</a>
+    {% endif %}
+{% endblock %}
